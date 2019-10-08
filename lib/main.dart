@@ -61,28 +61,30 @@ class _TaskListState extends State<TaskList> {
     "do my paper",
   ];
 
+  List<TextEditingController> _controllers = List();
+
   @override
   Widget build(BuildContext context) {
     return Container(
       color: Colors.green,
-      child: Column(
+      child: Stack(
         children: <Widget>[
           Padding(
-            //Title Text
-            padding: EdgeInsets.only(top: 18.0, left: 13.0, bottom: 30.0),
-            child: Text("Today's tasks.",
+              //Title Text
+              padding: EdgeInsets.only(top: 18.0, left: 10.0, bottom: 30.0),
+              child: Text(
+                "Today's tasks.",
                 style: TextStyle(
                   fontSize: 30.0,
-                )
-            )
+                ),
+                textAlign: TextAlign.start,
+              )
           ),
         ],
       )
     );
   }
 }
-
-
 
 class InfoWindows extends StatefulWidget {
   @override
