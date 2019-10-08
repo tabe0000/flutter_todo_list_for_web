@@ -89,14 +89,13 @@ class _TaskListAreaState extends State<TaskListArea> {
                 alignment: Alignment.bottomCenter,
                 child: Row(
                   children: <Widget>[
-                    Container(
-                      width: double.infinity,
+                    Expanded(
+                      flex:1,
                       child: TextField(
-                        textInputAction: TextInputAction.done,
                         decoration: InputDecoration(
                           hintText: "make coffee.",
                           border: UnderlineInputBorder(
-                            borderSide: BorderSide(color: Colors.grey),
+                            borderSide: BorderSide(color: Colors.black),
                           )
                         ),
                       )
