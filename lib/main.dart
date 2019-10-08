@@ -6,8 +6,10 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Todo list for web',
-      theme: ThemeData(),
+      title: 'todo_list_for_web',
+      theme: ThemeData(
+        primarySwatch: Colors.grey,
+      ),
       home: RootPage(),
     );
   }
@@ -33,7 +35,7 @@ class _RootPageState extends State<RootPage> {
               child: Container(
                 height: double.infinity,
                 width: double.infinity,
-                child: TaskList(),
+                child: TaskListArea(),
                 color: Colors.white,
               ),
             ),
@@ -49,19 +51,17 @@ class _RootPageState extends State<RootPage> {
   }
 }
 
-class TaskList extends StatefulWidget {
+class TaskListArea extends StatefulWidget {
   @override
-  _TaskListState createState() => _TaskListState();
+  _TaskListAreaState createState() => _TaskListAreaState();
 }
 
-class _TaskListState extends State<TaskList> {
+class _TaskListAreaState extends State<TaskListArea> {
   List<String> tasks = [
     "try making coffee",
     "work on homework",
     "do my paper",
   ];
-
-  List<TextEditingController> _controllers = List();
 
   @override
   Widget build(BuildContext context) {
@@ -69,18 +69,43 @@ class _TaskListState extends State<TaskList> {
       color: Colors.green,
       child: Stack(
         children: <Widget>[
-          Padding(
-              //Title Text
-              padding: EdgeInsets.only(top: 18.0, left: 10.0, bottom: 30.0),
-              child: Text(
-                "Today's tasks.",
-                style: TextStyle(
-                  fontSize: 30.0,
-                ),
-                textAlign: TextAlign.start,
-              )
+          Align(
+            alignment: Alignment.topLeft,
+            child: Padding(
+                //Title Text
+                padding: EdgeInsets.only(top: 18.0, left: 10.0, bottom: 30.0),
+                child: Text(
+                  "Today's tasks.",
+                  style: TextStyle(
+                    fontSize: 30.0,
+                  ),
+                  textAlign: TextAlign.start,
+                )),
           ),
-        ],
+          Align(alignment: Alignment.center, child: Text("I am list")),
+          Padding(
+            padding: EdgeInsets.all(50.0),
+            child: Align(
+                alignment: Alignment.bottomCenter,
+                child: Row(
+                  children: <Widget>[
+                    Container(
+                      width: double.infinity,
+                      child: TextField(
+                        textInputAction: TextInputAction.done,
+                        decoration: InputDecoration(
+                          hintText: "make coffee.",
+                          border: UnderlineInputBorder(
+                            borderSide: BorderSide(color: Colors.grey),
+                          )
+                        ),
+                      )
+                    )
+                  ]
+                )
+              )
+          )
+        ]
       )
     );
   }
