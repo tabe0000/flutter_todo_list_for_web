@@ -1,4 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:timer_builder/timer_builder.dart';
+import 'package:flutter_picker/flutter_picker.dart';
+import 'dart:convert';
+import 'PickerData.dart';
+import 'package:flutter/src/material/dialog.dart' as Dialog;
 
 void main() => runApp(MyApp());
 
@@ -6,6 +11,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       title: 'todo_list_for_web',
       theme: ThemeData(
         primarySwatch: Colors.grey,
@@ -110,7 +116,8 @@ class _TaskListAreaState extends State<TaskListArea> {
               child: ListView.separated(
                   separatorBuilder: (context, index) =>
                       Divider(color: Colors.black),
-                  padding: EdgeInsets.symmetric(horizontal: 50.0, vertical: 5.0),
+                  padding:
+                      EdgeInsets.symmetric(horizontal: 50.0, vertical: 5.0),
                   itemCount: tasks.length,
                   itemBuilder: (context, i) => CheckboxListTile(
                         activeColor: Colors.redAccent,
@@ -118,8 +125,10 @@ class _TaskListAreaState extends State<TaskListArea> {
                           tasks[i],
                           style: TextStyle(
                             fontSize: 25.0,
-                            decoration: tasksValue[tasks[i]] ? TextDecoration.lineThrough : TextDecoration.none,
-                          ),  
+                            decoration: tasksValue[tasks[i]]
+                                ? TextDecoration.lineThrough
+                                : TextDecoration.none,
+                          ),
                         ),
                         controlAffinity: ListTileControlAffinity.trailing,
                         value: tasksValue[tasks[i]],
@@ -169,37 +178,20 @@ class _InfoWindowsState extends State<InfoWindows> {
   @override
   Widget build(BuildContext context) {
     return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      crossAxisAlignment: CrossAxisAlignment.center,
       children: <Widget>[
-        Expanded(
-            flex: 2,
-            child: Container(
-              width: double.infinity,
-              color: Colors.red,
-              child: Column(
-                children: <Widget>[
-                  Padding(
-                    padding: EdgeInsets.symmetric(vertical: 20.0),
-                    child: Text(
-                      "NOW DOING TASK",
-                      style: TextStyle(
-                        fontSize: 37.0,
-                        fontFamily: "RobotoMono"
-                      )
-                    )
-                  ),
-                  Padding(
-                    padding: EdgeInsets.symmetric(vertical: 20.0, horizontal: 20.0),
-                    child: Text("hogehoge")
-                  )
-                ],
-              )
-            )),
-        Expanded(
-            flex: 4,
-            child: Container(
-              color: Colors.blueGrey,
-            ))
+        Text("Timer"),
+        IconButton(
+          icon: Icon(Icons.add_box),
+          iconSize: 20.0,
+          color: Colors.black87,
+          onPressed: () {
+            
+          },
+        )
       ],
     );
   }
 }
+
