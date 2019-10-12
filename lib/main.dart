@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'dart:async';
+import 'package:intl/intl.dart';
 
 void main() => runApp(MyApp());
 
@@ -6,6 +8,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       title: 'todo_list_for_web',
       theme: ThemeData(
         primarySwatch: Colors.grey,
@@ -167,18 +170,14 @@ class _InfoWindowsState extends State<InfoWindows> {
   @override
   Widget build(BuildContext context) {
     return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      crossAxisAlignment: CrossAxisAlignment.center,
       children: <Widget>[
-        Expanded(
-            flex: 1,
-            child: Container(
-              color: Colors.red,
-            )),
-        Expanded(
-            flex: 1,
-            child: Container(
-              color: Colors.blueGrey,
-            ))
+        Text("Timer"),
+
       ],
     );
   }
 }
+
+
