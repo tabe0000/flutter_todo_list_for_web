@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:timer_builder/timer_builder.dart';
 import 'package:flutter_picker/flutter_picker.dart';
+import 'dart:convert';
+import 'PickerData.dart';
+import 'package:flutter/src/material/dialog.dart' as Dialog;
 
 void main() => runApp(MyApp());
 
@@ -28,12 +31,10 @@ class _RootPageState extends State<RootPage> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: Text(
-            "Flutter Todo list",
-            style: TextStyle(
-              color: Colors.white,
-            )
-          ),
+          title: Text("Flutter Todo list",
+              style: TextStyle(
+                color: Colors.white,
+              )),
           backgroundColor: Colors.black87,
         ),
         body: Row(
@@ -111,7 +112,8 @@ class _TaskListAreaState extends State<TaskListArea> {
               child: ListView.separated(
                   separatorBuilder: (context, index) =>
                       Divider(color: Colors.black),
-                  padding: EdgeInsets.symmetric(horizontal: 50.0, vertical: 5.0),
+                  padding:
+                      EdgeInsets.symmetric(horizontal: 50.0, vertical: 5.0),
                   itemCount: tasks.length,
                   itemBuilder: (context, i) => CheckboxListTile(
                         activeColor: Colors.redAccent,
@@ -119,8 +121,10 @@ class _TaskListAreaState extends State<TaskListArea> {
                           tasks[i],
                           style: TextStyle(
                             fontSize: 25.0,
-                            decoration: tasksValue[tasks[i]] ? TextDecoration.lineThrough : TextDecoration.none,
-                          ),  
+                            decoration: tasksValue[tasks[i]]
+                                ? TextDecoration.lineThrough
+                                : TextDecoration.none,
+                          ),
                         ),
                         controlAffinity: ListTileControlAffinity.trailing,
                         value: tasksValue[tasks[i]],
@@ -174,32 +178,15 @@ class _InfoWindowsState extends State<InfoWindows> {
       crossAxisAlignment: CrossAxisAlignment.center,
       children: <Widget>[
         Text("Timer"),
-        Picker(
-          adapter: PickerDataAdapter<String>(pickerdata: new JsonDecoder().convert(PickerData2), isArray: true),
-          hideHeader: true,
-          title: new Text("Please Select"),
-          onConfirm: (Picker picker, List value) {
-            print(value.toString());
-            print(picker.getSelectedValues());
-          }
-        ).showDialog(context)
+        IconButton(
+          icon: Icon(Icons.add_box),
+          iconSize: 20.0,
+          color: Colors.black87,
+          onPressed: () {
+            
+          },
+        )
       ],
-    );
-  }
-}
-
-class TimerText extends StatefulWidget {
-  @override
-  _TimerTextState createState() => _TimerTextState();
-}
-
-class _TimerTextState extends State<TimerText> {
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      child: TextField(
-
-      )
     );
   }
 }
