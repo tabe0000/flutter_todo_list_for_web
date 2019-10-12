@@ -62,13 +62,23 @@ class _TaskListAreaState extends State<TaskListArea> {
     "do my paper",
   ];
 
+  Map<String, bool> tasksValue = {};
+
+  @override
+  void initState() {
+    super.initState();
+    for (int i = 0; tasks.length > i; i++) {
+      tasksValue[tasks[i]] = false;
+      print(tasksValue[i]);
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
         color: Colors.green,
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: <Widget>[
+        child: Column(mainAxisAlignment: MainAxisAlignment.start, children: <
+            Widget>[
           Expanded(
             flex: 2,
             child: Padding(
@@ -83,22 +93,18 @@ class _TaskListAreaState extends State<TaskListArea> {
                 )),
           ),
           Expanded(
-              flex: 15,  
+              flex: 15,
               child: ListView.separated(
                   separatorBuilder: (context, index) =>
                       Divider(color: Colors.black),
                   padding: EdgeInsets.all(5.0),
                   itemCount: tasks.length,
-                  itemBuilder: (context, i) => 
-                    Card(
-                      child: ListTile(
-                        leading: FlutterLogo(),
+                  itemBuilder: (context, i) => CheckboxListTile(
+                        activeColor: Colors.redAccent,
                         title: Text(tasks[i]),
-                        trailing: Icon(Icons.check_box_outline_blank),
-                      )
-                    )
-              )
-          ),
+                        controlAffinity: ListTileControlAffinity.trailing,
+                        value: tasksValue[tasks[i]],
+                      ))),
           Expanded(
               flex: 2,
               child: Align(
