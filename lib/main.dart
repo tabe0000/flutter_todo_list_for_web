@@ -25,7 +25,12 @@ class _RootPageState extends State<RootPage> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: Text("Flutter Todo list"),
+          title: Text(
+            "Flutter Todo list",
+            style: TextStyle(
+              color: Colors.white,
+            )
+          ),
           backgroundColor: Colors.black87,
         ),
         body: Row(
