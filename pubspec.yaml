@@ -20,6 +20,7 @@ dependencies:
   flutter:
     sdk: flutter
   shared_preferences:
+  timer_builder:
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
@@ -71,3 +72,8 @@ flutter:
   #
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages
+  fonts:
+    - family: RobotoMono
+      fonts: 
+        - asset: fonts/Roboto_Mono/Roboto_Mono-Bold.ttf
+        - asset: fonts/Roboto_Mono/Roboto_Mono-Light.ttf

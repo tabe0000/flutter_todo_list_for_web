@@ -9,6 +9,7 @@ class MyApp extends StatelessWidget {
       title: 'todo_list_for_web',
       theme: ThemeData(
         primarySwatch: Colors.grey,
+        fontFamily: "RobotoMono"
       ),
       home: RootPage(),
     );
@@ -29,6 +30,7 @@ class _RootPageState extends State<RootPage> {
             "Flutter Todo list",
             style: TextStyle(
               color: Colors.white,
+              fontFamily: "RobotoMono"
             )
           ),
           backgroundColor: Colors.black87,
@@ -87,7 +89,7 @@ class _TaskListAreaState extends State<TaskListArea> {
   @override
   Widget build(BuildContext context) {
     return Container(
-        color: Colors.green,
+        color: Colors.black26,
         child: Column(mainAxisAlignment: MainAxisAlignment.start, children: <
             Widget>[
           Expanded(
@@ -169,12 +171,31 @@ class _InfoWindowsState extends State<InfoWindows> {
     return Column(
       children: <Widget>[
         Expanded(
-            flex: 1,
+            flex: 2,
             child: Container(
+              width: double.infinity,
               color: Colors.red,
+              child: Column(
+                children: <Widget>[
+                  Padding(
+                    padding: EdgeInsets.symmetric(vertical: 20.0),
+                    child: Text(
+                      "NOW DOING TASK",
+                      style: TextStyle(
+                        fontSize: 37.0,
+                        fontFamily: "RobotoMono"
+                      )
+                    )
+                  ),
+                  Padding(
+                    padding: EdgeInsets.symmetric(vertical: 20.0, horizontal: 20.0),
+                    child: Text("hogehoge")
+                  )
+                ],
+              )
             )),
         Expanded(
-            flex: 1,
+            flex: 4,
             child: Container(
               color: Colors.blueGrey,
             ))
