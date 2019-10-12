@@ -35,15 +35,14 @@ class _RootPageState extends State<RootPage> {
               child: Container(
                 height: double.infinity,
                 width: double.infinity,
-                child: TaskListArea(),
                 color: Colors.white,
+                child: TaskListArea(),
               ),
             ),
             Expanded(
               flex: 3,
               child: Container(
                 child: InfoWindows(),
-                color: Colors.orange,
               ),
             )
           ],
@@ -66,9 +65,8 @@ class _TaskListAreaState extends State<TaskListArea> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: Colors.green,
-      child: Stack(
-        children: <Widget>[
+        color: Colors.green,
+        child: Stack(children: <Widget>[
           Align(
             alignment: Alignment.topLeft,
             child: Padding(
@@ -82,31 +80,50 @@ class _TaskListAreaState extends State<TaskListArea> {
                   textAlign: TextAlign.start,
                 )),
           ),
-          Align(alignment: Alignment.center, child: Text("I am list")),
-          Padding(
-            padding: EdgeInsets.all(50.0),
-            child: Align(
-                alignment: Alignment.bottomCenter,
-                child: Row(
-                  children: <Widget>[
-                    Expanded(
-                      flex:1,
-                      child: TextField(
-                        decoration: InputDecoration(
-                          hintText: "make coffee.",
-                          border: UnderlineInputBorder(
-                            borderSide: BorderSide(color: Colors.black),
-                          )
-                        ),
-                      )
+          Align(
+              alignment: Alignment.center,
+              child: Container(
+                height: 300.0,
+                child: ListView.separated(
+                    separatorBuilder: (context, index) =>
+                        Divider(color: Colors.black),
+                    padding: EdgeInsets.all(16.0),
+                    itemCount: tasks.length,
+                    itemBuilder: (context, i) => Padding(
+                      padding: EdgeInsets.all(8.0),
+                      child: Center(child: Text(tasks[i]),)
                     )
-                  ]
                 )
               )
-          )
-        ]
-      )
-    );
+          ),
+          Padding(
+              padding: EdgeInsets.all(50.0),
+              child: Align(
+                  alignment: Alignment.bottomCenter,
+                  child: Row(children: <Widget>[
+                    Expanded(
+                        flex: 20,
+                        child: TextField(
+                          decoration: InputDecoration(
+                              hintText: "make coffee.",
+                              border: UnderlineInputBorder(
+                                borderSide: BorderSide(color: Colors.black),
+                              )),
+                        )),
+                    Expanded(
+                      child: SizedBox(
+                        width: 10.0,
+                      ),
+                    ),
+                    Expanded(
+                        flex: 5,
+                        child: FlatButton(
+                          color: Colors.grey,
+                          onPressed: () {},
+                          child: Text("Add"),
+                        ))
+                  ])))
+        ]));
   }
 }
 
