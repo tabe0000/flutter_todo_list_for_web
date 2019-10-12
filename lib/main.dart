@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'dart:async';
-import 'package:intl/intl.dart';
+import 'package:timer_builder/timer_builder.dart';
+import 'package:flutter_picker/flutter_picker.dart';
 
 void main() => runApp(MyApp());
 
@@ -174,10 +174,33 @@ class _InfoWindowsState extends State<InfoWindows> {
       crossAxisAlignment: CrossAxisAlignment.center,
       children: <Widget>[
         Text("Timer"),
-
+        Picker(
+          adapter: PickerDataAdapter<String>(pickerdata: new JsonDecoder().convert(PickerData2), isArray: true),
+          hideHeader: true,
+          title: new Text("Please Select"),
+          onConfirm: (Picker picker, List value) {
+            print(value.toString());
+            print(picker.getSelectedValues());
+          }
+        ).showDialog(context)
       ],
     );
   }
 }
 
+class TimerText extends StatefulWidget {
+  @override
+  _TimerTextState createState() => _TimerTextState();
+}
+
+class _TimerTextState extends State<TimerText> {
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      child: TextField(
+
+      )
+    );
+  }
+}
 
