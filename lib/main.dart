@@ -25,11 +25,7 @@ class _RootPageState extends State<RootPage> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: Text(
-            "Flutter Todo list",
-            style: TextStyle(
-              color: Colors.white70,
-            )),
+          title: Text("Flutter Todo list"),
           backgroundColor: Colors.black87,
         ),
         body: Row(
@@ -71,7 +67,7 @@ class _TaskListAreaState extends State<TaskListArea> {
     return Container(
         color: Colors.green,
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisAlignment: MainAxisAlignment.start,
           children: <Widget>[
           Expanded(
             flex: 2,
@@ -87,54 +83,49 @@ class _TaskListAreaState extends State<TaskListArea> {
                 )),
           ),
           Expanded(
-              flex: 15,
-                child: ListView.separated(
-                    separatorBuilder: (context, index) =>
-                        Divider(color: Colors.black),
-                    padding: EdgeInsets.all(16.0),
-                    itemCount: tasks.length,
-                    itemBuilder: (context, i) => Padding(
-                      padding: EdgeInsets.all(8.0),
-                      child: Center(
-                        child: Text(
-                          tasks[i],
-                          style: TextStyle(
-                            fontSize: 25.0,
-                            fontWeight: FontWeight.w300,
-                          )
-                          ),)
+              flex: 15,  
+              child: ListView.separated(
+                  separatorBuilder: (context, index) =>
+                      Divider(color: Colors.black),
+                  padding: EdgeInsets.all(5.0),
+                  itemCount: tasks.length,
+                  itemBuilder: (context, i) => 
+                    Card(
+                      child: ListTile(
+                        leading: FlutterLogo(),
+                        title: Text(tasks[i]),
+                        trailing: Icon(Icons.check_box_outline_blank),
+                      )
                     )
-                )
+              )
           ),
           Expanded(
-            flex: 3,
-            child: Padding(
-                padding: EdgeInsets.all(50.0),
-                child: Align(
-                    alignment: Alignment.bottomCenter,
-                    child: Row(children: <Widget>[
-                      Expanded(
-                          flex: 20,
-                          child: TextField(
-                            decoration: InputDecoration(
-                                hintText: "make coffee.",
-                                border: UnderlineInputBorder(
-                                  borderSide: BorderSide(color: Colors.black),
-                                )),
-                          )),
-                      Expanded(
-                        child: SizedBox(
-                          width: 10.0,
-                        ),
+              flex: 2,
+              child: Align(
+                  alignment: Alignment.bottomCenter,
+                  child: Row(children: <Widget>[
+                    Expanded(
+                        flex: 20,
+                        child: TextField(
+                          decoration: InputDecoration(
+                              hintText: "make coffee.",
+                              border: UnderlineInputBorder(
+                                borderSide: BorderSide(color: Colors.black),
+                              )),
+                        )),
+                    Expanded(
+                      child: SizedBox(
+                        width: 10.0,
                       ),
-                      Expanded(
-                          flex: 5,
-                          child: FlatButton(
-                            color: Colors.grey,
-                            onPressed: () {},
-                            child: Text("Add"),
-                          ))
-                    ]))))
+                    ),
+                    Expanded(
+                        flex: 5,
+                        child: FlatButton(
+                          color: Colors.grey,
+                          onPressed: () {},
+                          child: Text("Add"),
+                        ))
+                  ])))
         ]));
   }
 }
