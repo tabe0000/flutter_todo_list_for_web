@@ -69,8 +69,14 @@ class _TaskListAreaState extends State<TaskListArea> {
     super.initState();
     for (int i = 0; tasks.length > i; i++) {
       tasksValue[tasks[i]] = false;
-      print(tasksValue[i]);
+      print(tasksValue[tasks[i]]);
     }
+  }
+
+  _changeBool(bool e, String key) {
+    setState(() {
+      tasksValue[key] = e;
+    });
   }
 
   @override
@@ -87,7 +93,7 @@ class _TaskListAreaState extends State<TaskListArea> {
                 child: Text(
                   "Today's tasks.",
                   style: TextStyle(
-                    fontSize: 30.0,
+                    fontSize: 37.0,
                   ),
                   textAlign: TextAlign.start,
                 )),
@@ -97,41 +103,52 @@ class _TaskListAreaState extends State<TaskListArea> {
               child: ListView.separated(
                   separatorBuilder: (context, index) =>
                       Divider(color: Colors.black),
-                  padding: EdgeInsets.all(5.0),
+                  padding: EdgeInsets.symmetric(horizontal: 50.0, vertical: 5.0),
                   itemCount: tasks.length,
                   itemBuilder: (context, i) => CheckboxListTile(
                         activeColor: Colors.redAccent,
-                        title: Text(tasks[i]),
+                        title: Text(
+                          tasks[i],
+                          style: TextStyle(
+                            fontSize: 25.0,
+                            decoration: tasksValue[tasks[i]] ? TextDecoration.lineThrough : TextDecoration.none,
+                          ),  
+                        ),
                         controlAffinity: ListTileControlAffinity.trailing,
                         value: tasksValue[tasks[i]],
+                        onChanged: (e) {
+                          _changeBool(e, tasks[i]);
+                        },
                       ))),
           Expanded(
               flex: 2,
-              child: Align(
-                  alignment: Alignment.bottomCenter,
-                  child: Row(children: <Widget>[
-                    Expanded(
-                        flex: 20,
-                        child: TextField(
-                          decoration: InputDecoration(
-                              hintText: "make coffee.",
-                              border: UnderlineInputBorder(
-                                borderSide: BorderSide(color: Colors.black),
-                              )),
-                        )),
-                    Expanded(
-                      child: SizedBox(
-                        width: 10.0,
-                      ),
-                    ),
-                    Expanded(
-                        flex: 5,
-                        child: FlatButton(
-                          color: Colors.grey,
-                          onPressed: () {},
-                          child: Text("Add"),
-                        ))
-                  ])))
+              child: Padding(
+                  padding: EdgeInsets.all(20.0),
+                  child: Align(
+                      alignment: Alignment.bottomCenter,
+                      child: Row(children: <Widget>[
+                        Expanded(
+                            flex: 20,
+                            child: TextField(
+                              decoration: InputDecoration(
+                                  hintText: "make coffee.",
+                                  border: UnderlineInputBorder(
+                                    borderSide: BorderSide(color: Colors.black),
+                                  )),
+                            )),
+                        Expanded(
+                          child: SizedBox(
+                            width: 10.0,
+                          ),
+                        ),
+                        Expanded(
+                            flex: 5,
+                            child: FlatButton(
+                              color: Colors.grey,
+                              onPressed: () {},
+                              child: Text("Add"),
+                            ))
+                      ]))))
         ]));
   }
 }
