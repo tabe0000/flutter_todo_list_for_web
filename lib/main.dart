@@ -17,7 +17,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'todo_list_for_web',
-      theme: ThemeData(primarySwatch: Colors.grey, fontFamily: "Sawarabi"),
+      theme: ThemeData(primarySwatch: Colors.grey, fontFamily: "Sawarabi",),
       home: RootPage(),
     );
   }
@@ -51,8 +51,17 @@ class _RootPageState extends State<RootPage> {
                 },
               ),
               ListTile(
-                title: Text("Licenses and datas of this app")
-              )
+                title: Text("Licenses"),
+                onTap: () {
+
+                },
+              ),
+              ListTile(
+                title: Text("Description"),
+                onTap: () {
+                  
+                },
+              ),
             ],
           )
         ),
@@ -60,6 +69,7 @@ class _RootPageState extends State<RootPage> {
           title: Text("Flutter Todo list",
               style: TextStyle(color: Colors.white, fontFamily: "Roboto")),
           backgroundColor: Colors.black87,
+          iconTheme: IconThemeData(color: Colors.white),
         ),
         body: ValueListenableBuilder(
           builder: (BuildContext context, int value, Widget child) {
@@ -125,9 +135,15 @@ class _TaskListAreaState extends State<TaskListArea> {
   @override
   Widget build(BuildContext context) {
     return Container(
-        color: Colors.black26,
-        child: Column(mainAxisAlignment: MainAxisAlignment.start, children: <
-            Widget>[
+        decoration: BoxDecoration(
+          image: DecorationImage(
+            image: AssetImage("assets/coffee_wallpaper.jpg"),
+            fit: BoxFit.cover
+          ),
+        ),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.start, 
+          children: <Widget>[
           Expanded(
             flex: 2,
             child: Padding(
@@ -138,6 +154,7 @@ class _TaskListAreaState extends State<TaskListArea> {
                   style: TextStyle(
                     fontSize: 37.0,
                     fontFamily: "Roboto",
+                    color: Colors.white,
                   ),
                   textAlign: TextAlign.start,
                 )),
@@ -161,6 +178,7 @@ class _TaskListAreaState extends State<TaskListArea> {
                           decoration: task["value"]
                               ? TextDecoration.lineThrough
                               : TextDecoration.none,
+                        color: Colors.white,
                         ),
                       ),
                       controlAffinity: ListTileControlAffinity.trailing,
@@ -202,7 +220,10 @@ class _TaskListAreaState extends State<TaskListArea> {
                                   _addTask(_taskTextFieldController.text);
                                 }
                               },
-                              child: Text("Add"),
+                              child: Icon(
+                                Icons.add,
+
+                              ),
                             ))
                       ]))))
         ]));
@@ -225,6 +246,7 @@ class _InfoWindowsState extends State<InfoWindows> {
       children: <Widget>[
         Text(
           "Finished Tasks Counter",
+          textAlign: TextAlign.center,
           style: TextStyle(
             fontSize: 37.0,
             fontFamily: "Roboto"
