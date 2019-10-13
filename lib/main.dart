@@ -62,9 +62,7 @@ class TaskListArea extends StatefulWidget {
 
 class _TaskListAreaState extends State<TaskListArea> {
   List<Map<String, dynamic>> tasks = [
-    {"id": 0, "task": "try making coffee", "value": false},
-    {"id": 1, "task": "work on homework", "value": false},
-    {"id": 2, "task": "do my paper", "value": false}
+    {"task": "try making coffee", "value": false},
   ];
 
   final _taskTextFieldController = TextEditingController();
@@ -80,6 +78,13 @@ class _TaskListAreaState extends State<TaskListArea> {
     setState(() {
       tempMap = tasks[id];
       tempMap["value"] = !tempMap["value"];
+    });
+  }
+
+  _addTask(String added_task) {
+    setState(() {
+      tasks.add({"task": added_task, "value": false});
+      _taskTextFieldController.clear();
     });
   }
 
@@ -106,20 +111,21 @@ class _TaskListAreaState extends State<TaskListArea> {
               flex: 15,
               child: ListView.separated(
                   separatorBuilder: (context, index) =>
-                      Divider(color: Colors.black),
+                      Divider(color: Colors.black12),
                   padding:
                       EdgeInsets.symmetric(horizontal: 50.0, vertical: 5.0),
                   itemCount: tasks.length,
+                  
+                  
                   itemBuilder: (BuildContext context, int index) {
                     final task = tasks[index];
-
                     return CheckboxListTile(
                       activeColor: Colors.redAccent,
                       title: Text(
-                        task["id"],
+                        task["task"],
                         style: TextStyle(
                           fontSize: 25.0,
-                          decoration: task["task"]
+                          decoration: task["value"]
                               ? TextDecoration.lineThrough
                               : TextDecoration.none,
                         ),
@@ -127,7 +133,7 @@ class _TaskListAreaState extends State<TaskListArea> {
                       controlAffinity: ListTileControlAffinity.trailing,
                       value: task["value"],
                       onChanged: (e) {
-                        _changeBool(e, task["task"]);
+                        _changeBool(e, index);
                       },
                     );
                   })),
@@ -145,7 +151,7 @@ class _TaskListAreaState extends State<TaskListArea> {
                               decoration: InputDecoration(
                                   hintText: "make coffee.",
                                   border: UnderlineInputBorder(
-                                    borderSide: BorderSide(color: Colors.black),
+                                    borderSide: BorderSide(color: Colors.black26),
                                   )),
                             )),
                         Expanded(
@@ -157,7 +163,11 @@ class _TaskListAreaState extends State<TaskListArea> {
                             flex: 5,
                             child: FlatButton(
                               color: Colors.grey,
-                              onPressed: () {},
+                              onPressed: () {
+                                if (_taskTextFieldController.text != "") {
+                                  _addTask(_taskTextFieldController.text);
+                                }
+                              },
                               child: Text("Add"),
                             ))
                       ]))))
