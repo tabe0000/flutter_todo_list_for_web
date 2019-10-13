@@ -2,11 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:timer_builder/timer_builder.dart';
 import 'package:flutter_picker/flutter_picker.dart';
 import 'dart:convert';
-import 'PickerData.dart';
 import 'package:flutter/src/material/dialog.dart' as Dialog;
 import 'dart:async';
 
 var controller = StreamController<String>();
+
+final ValueNotifier<int> counter = ValueNotifier<int>(0);
 
 void main() => runApp(MyApp());
 
@@ -16,7 +17,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'todo_list_for_web',
-      theme: ThemeData(primarySwatch: Colors.grey, fontFamily: "RobotoMono"),
+      theme: ThemeData(primarySwatch: Colors.grey, fontFamily: "Sawarabi"),
       home: RootPage(),
     );
   }
@@ -35,27 +36,32 @@ class _RootPageState extends State<RootPage> {
     return Scaffold(
         appBar: AppBar(
           title: Text("Flutter Todo list",
-              style: TextStyle(color: Colors.white, fontFamily: "RobotoMono")),
+              style: TextStyle(color: Colors.white, fontFamily: "Roboto")),
           backgroundColor: Colors.black87,
         ),
-        body: Row(
-          children: <Widget>[
-            Expanded(
-              flex: 5,
-              child: Container(
-                height: double.infinity,
-                width: double.infinity,
-                color: Colors.white,
-                child: TaskListArea(),
-              ),
-            ),
-            Expanded(
-              flex: 3,
-              child: Container(
-                child: InfoWindows(),
-              ),
-            )
-          ],
+        body: ValueListenableBuilder(
+          builder: (BuildContext context, int value, Widget child) {
+            return Row(
+              children: <Widget>[
+                Expanded(
+                  flex: 5,
+                  child: Container(
+                    height: double.infinity,
+                    width: double.infinity,
+                    color: Colors.white,
+                    child: TaskListArea(),
+                  ),
+                ),
+                Expanded(
+                  flex: 3,
+                  child: Container(
+                    child: InfoWindows(),
+                  ),
+                )
+              ],
+            );
+          },
+          valueListenable: counter,
         ));
   }
 }
@@ -83,6 +89,7 @@ class _TaskListAreaState extends State<TaskListArea> {
     setState(() {
       tempMap = tasks[id];
       tempMap["value"] = !tempMap["value"];
+      tempMap["value"] ? counter.value += 1 : counter.value -= 1;
     });
   }
 
@@ -108,6 +115,7 @@ class _TaskListAreaState extends State<TaskListArea> {
                   "Today's tasks.",
                   style: TextStyle(
                     fontSize: 37.0,
+                    fontFamily: "Roboto",
                   ),
                   textAlign: TextAlign.start,
                 )),
@@ -194,13 +202,21 @@ class _InfoWindowsState extends State<InfoWindows> {
       crossAxisAlignment: CrossAxisAlignment.center,
       children: <Widget>[
         Text(
-          "Counter",
+          "Finished Tasks Counter",
           style: TextStyle(
-            fontSize: 30.0,
-          ),
+            fontSize: 37.0,
+            fontFamily: "Roboto"
+          )  
+        ),
+        SizedBox(
+          height: 10.0,
         ),
         Text(
-          _count.toString(),
+          counter.value.toString(),
+          style: TextStyle(
+            fontSize: 35.0,
+            fontFamily: "Roboto"
+          )
         )
       ],
     );
