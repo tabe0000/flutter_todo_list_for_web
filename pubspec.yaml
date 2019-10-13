@@ -81,4 +81,4 @@ flutter:
         - asset: fonts/SawarabiGothic-Regular.ttf
     - family: Roboto
       fonts:
-        - asset: fonts/Roboto_Mono/RobotoMono-Midium.ttf
+        - asset: fonts/Roboto_Mono/RobotoMono-Medium.ttf
