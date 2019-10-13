@@ -4,6 +4,9 @@ import 'package:flutter_picker/flutter_picker.dart';
 import 'dart:convert';
 import 'PickerData.dart';
 import 'package:flutter/src/material/dialog.dart' as Dialog;
+import 'dart:async';
+
+var controller = StreamController<String>();
 
 void main() => runApp(MyApp());
 
@@ -25,6 +28,8 @@ class RootPage extends StatefulWidget {
 }
 
 class _RootPageState extends State<RootPage> {
+  final ValueNotifier<int> counter = ValueNotifier<int>(0);
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -81,9 +86,9 @@ class _TaskListAreaState extends State<TaskListArea> {
     });
   }
 
-  _addTask(String added_task) {
+  _addTask(String addedTask) {
     setState(() {
-      tasks.add({"task": added_task, "value": false});
+      tasks.add({"task": addedTask, "value": false});
       _taskTextFieldController.clear();
     });
   }
@@ -115,8 +120,6 @@ class _TaskListAreaState extends State<TaskListArea> {
                   padding:
                       EdgeInsets.symmetric(horizontal: 50.0, vertical: 5.0),
                   itemCount: tasks.length,
-                  
-                  
                   itemBuilder: (BuildContext context, int index) {
                     final task = tasks[index];
                     return CheckboxListTile(
@@ -151,7 +154,8 @@ class _TaskListAreaState extends State<TaskListArea> {
                               decoration: InputDecoration(
                                   hintText: "make coffee.",
                                   border: UnderlineInputBorder(
-                                    borderSide: BorderSide(color: Colors.black26),
+                                    borderSide:
+                                        BorderSide(color: Colors.black26),
                                   )),
                             )),
                         Expanded(
@@ -181,18 +185,22 @@ class InfoWindows extends StatefulWidget {
 }
 
 class _InfoWindowsState extends State<InfoWindows> {
+  int _count;
+
   @override
   Widget build(BuildContext context) {
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       crossAxisAlignment: CrossAxisAlignment.center,
       children: <Widget>[
-        Text("Timer"),
-        IconButton(
-          icon: Icon(Icons.add_box),
-          iconSize: 20.0,
-          color: Colors.black87,
-          onPressed: () {},
+        Text(
+          "Counter",
+          style: TextStyle(
+            fontSize: 30.0,
+          ),
+        ),
+        Text(
+          _count.toString(),
         )
       ],
     );
