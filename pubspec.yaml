@@ -75,7 +75,9 @@ flutter:
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages
   fonts:
-    - family: RobotoMono
+    - family: Sawarabi
       fonts: 
-        - asset: fonts/Roboto_Mono/RobotoMono-Bold.ttf
+        - asset: fonts/SawarabiGothic-Regular.ttf
+    - family: Roboto
+      fonts:
         - asset: fonts/Roboto_Mono/RobotoMono-Light.ttf
