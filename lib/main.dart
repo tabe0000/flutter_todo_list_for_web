@@ -13,10 +13,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'todo_list_for_web',
-      theme: ThemeData(
-        primarySwatch: Colors.grey,
-        fontFamily: "RobotoMono"
-      ),
+      theme: ThemeData(primarySwatch: Colors.grey, fontFamily: "RobotoMono"),
       home: RootPage(),
     );
   }
@@ -32,13 +29,8 @@ class _RootPageState extends State<RootPage> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: Text(
-            "Flutter Todo list",
-            style: TextStyle(
-              color: Colors.white,
-              fontFamily: "RobotoMono"
-            )
-          ),
+          title: Text("Flutter Todo list",
+              style: TextStyle(color: Colors.white, fontFamily: "RobotoMono")),
           backgroundColor: Colors.black87,
         ),
         body: Row(
@@ -69,26 +61,25 @@ class TaskListArea extends StatefulWidget {
 }
 
 class _TaskListAreaState extends State<TaskListArea> {
-  List<String> tasks = [
-    "try making coffee",
-    "work on homework",
-    "do my paper",
+  List<Map<String, dynamic>> tasks = [
+    {"id": 0, "task": "try making coffee", "value": false},
+    {"id": 1, "task": "work on homework", "value": false},
+    {"id": 2, "task": "do my paper", "value": false}
   ];
 
-  Map<String, bool> tasksValue = {};
+  final _taskTextFieldController = TextEditingController();
+  Map<String, dynamic> tempMap = {};
 
   @override
   void initState() {
     super.initState();
-    for (int i = 0; tasks.length > i; i++) {
-      tasksValue[tasks[i]] = false;
-      print(tasksValue[tasks[i]]);
-    }
+    print("initialized.");
   }
 
-  _changeBool(bool e, String key) {
+  _changeBool(bool e, int id) {
     setState(() {
-      tasksValue[key] = e;
+      tempMap = tasks[id];
+      tempMap["value"] = !tempMap["value"];
     });
   }
 
@@ -119,23 +110,27 @@ class _TaskListAreaState extends State<TaskListArea> {
                   padding:
                       EdgeInsets.symmetric(horizontal: 50.0, vertical: 5.0),
                   itemCount: tasks.length,
-                  itemBuilder: (context, i) => CheckboxListTile(
-                        activeColor: Colors.redAccent,
-                        title: Text(
-                          tasks[i],
-                          style: TextStyle(
-                            fontSize: 25.0,
-                            decoration: tasksValue[tasks[i]]
-                                ? TextDecoration.lineThrough
-                                : TextDecoration.none,
-                          ),
+                  itemBuilder: (BuildContext context, int index) {
+                    final task = tasks[index];
+
+                    return CheckboxListTile(
+                      activeColor: Colors.redAccent,
+                      title: Text(
+                        task["id"],
+                        style: TextStyle(
+                          fontSize: 25.0,
+                          decoration: task["task"]
+                              ? TextDecoration.lineThrough
+                              : TextDecoration.none,
                         ),
-                        controlAffinity: ListTileControlAffinity.trailing,
-                        value: tasksValue[tasks[i]],
-                        onChanged: (e) {
-                          _changeBool(e, tasks[i]);
-                        },
-                      ))),
+                      ),
+                      controlAffinity: ListTileControlAffinity.trailing,
+                      value: task["value"],
+                      onChanged: (e) {
+                        _changeBool(e, task["task"]);
+                      },
+                    );
+                  })),
           Expanded(
               flex: 2,
               child: Padding(
@@ -146,6 +141,7 @@ class _TaskListAreaState extends State<TaskListArea> {
                         Expanded(
                             flex: 20,
                             child: TextField(
+                              controller: _taskTextFieldController,
                               decoration: InputDecoration(
                                   hintText: "make coffee.",
                                   border: UnderlineInputBorder(
@@ -186,12 +182,9 @@ class _InfoWindowsState extends State<InfoWindows> {
           icon: Icon(Icons.add_box),
           iconSize: 20.0,
           color: Colors.black87,
-          onPressed: () {
-            
-          },
+          onPressed: () {},
         )
       ],
     );
   }
 }
-

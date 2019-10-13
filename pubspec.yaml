@@ -77,5 +77,5 @@ flutter:
   fonts:
     - family: RobotoMono
       fonts: 
-        - asset: fonts/Roboto_Mono/Roboto_Mono-Bold.ttf
-        - asset: fonts/Roboto_Mono/Roboto_Mono-Light.ttf
+        - asset: fonts/Roboto_Mono/RobotoMono-Bold.ttf
+        - asset: fonts/Roboto_Mono/RobotoMono-Light.ttf
