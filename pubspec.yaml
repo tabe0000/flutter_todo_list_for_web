@@ -19,7 +19,6 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  shared_preferences:
   timer_builder:
   flutter_picker: ^1.0.15
 
