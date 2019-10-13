@@ -34,6 +34,28 @@ class _RootPageState extends State<RootPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+        drawer: Drawer(
+          child: ListView(
+            padding: EdgeInsets.zero,
+            children: <Widget>[
+              DrawerHeader(
+                child: Text('Flutter todo list app'),
+                decoration: BoxDecoration(
+                  color: Colors.black38
+                ),
+              ),
+              ListTile(
+                title: Text("Todo List"),
+                onTap: () {
+
+                },
+              ),
+              ListTile(
+                title: Text("Licenses and datas of this app")
+              )
+            ],
+          )
+        ),
         appBar: AppBar(
           title: Text("Flutter Todo list",
               style: TextStyle(color: Colors.white, fontFamily: "Roboto")),
