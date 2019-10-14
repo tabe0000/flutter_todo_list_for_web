@@ -2,6 +2,8 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'dart:async';
 
+import 'description.dart';
+
 var controller = StreamController<String>();
 
 final ValueNotifier<int> counter = ValueNotifier<int>(0);
@@ -41,7 +43,6 @@ class _RootPageState extends State<RootPage>
   AnimationController _controller;
   Animation _animation;
   StreamController<PagesWidget> _refreshController;
-
 
   @override
   void initState() {
@@ -203,8 +204,6 @@ class TaskListArea extends StatefulWidget {
 }
 
 class _TaskListAreaState extends State<TaskListArea> {
-
-
   final _taskTextFieldController = TextEditingController();
   Map<String, dynamic> tempMap = {};
 
@@ -357,75 +356,5 @@ class _InfoWindowsState extends State<InfoWindows> {
             style: TextStyle(fontSize: 35.0, fontFamily: "Roboto"))
       ],
     );
-  }
-}
-
-class Licenses extends StatefulWidget {
-  @override
-  _LicensesState createState() => _LicensesState();
-}
-
-class _LicensesState extends State<Licenses> {
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-        color: Colors.black54,
-        child: Column(
-          children: <Widget>[Text("hogehoge")],
-        ));
-  }
-}
-
-class Descriptions extends StatefulWidget {
-  @override
-  _DescriptionsState createState() => _DescriptionsState();
-}
-
-class _DescriptionsState extends State<Descriptions> {
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-        color: Colors.white70,
-        width: double.infinity,
-        height: double.infinity,
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: <Widget>[
-            SizedBox(
-              height: 60.0,
-            ),
-            Text(
-              "Description",
-              style: TextStyle(
-                fontSize: 30.0,
-                fontFamily: "Roboto",
-              ),
-            ),
-            SizedBox(
-              height: 100.0,
-            ),
-            SizedBox(
-              width: 300.0,
-              child: ListTile(
-                title: Text("tabe"),
-                subtitle: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: <Widget>[
-                    Text("Twitter: @tabe_unity"),
-                    Text("PortfolioSite: tabedev.work"),
-                  ],
-                )
-              ),
-            ),
-            SizedBox(
-              height: 100.0,
-            ),
-            Text(
-              "このWebアプリはFlutterで作られています。練習で作ってみました。ぜひご活用ください。"
-            )
-
-          
-          ],
-        ));
   }
 }
