@@ -9,6 +9,8 @@ FLutterをWebで動かしてみたいがために作られたToDoアプリです
 UIやロジックの勉強を含めてやっていたので、かなりコードが良くないです。そのうちリファクタリングをしようと思っていｍ(ry
 
 ## Demo
+<img src="./clipboard.png" width="500.0">  
+<img src="./desc.png" width="500.0">
 
 
 ## Link
