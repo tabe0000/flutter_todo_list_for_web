@@ -31,10 +31,28 @@ class RootPage extends StatefulWidget {
   _RootPageState createState() => _RootPageState();
 }
 
-class _RootPageState extends State<RootPage> {
+class _RootPageState extends State<RootPage>
+    with SingleTickerProviderStateMixin<RootPage> {
   PagesWidget selectedPageWidget = PagesWidget.TODOLIST;
   AnimationController _controller;
   Animation _animation;
+  StreamController<PagesWidget> _refreshController;
+
+  @override
+  void initState() {
+    super.initState();
+    _controller =
+        AnimationController(vsync: this, duration: Duration(milliseconds: 500));
+    _animation = Tween(begin: 0.0, end: 1.0).animate(_controller);
+    _refreshController = StreamController<PagesWidget>();
+    _refreshController.add(selectedPageWidget);
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    _controller.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -52,6 +70,8 @@ class _RootPageState extends State<RootPage> {
             leading: Icon(Icons.list),
             onTap: () {
               selectedPageWidget = PagesWidget.TODOLIST;
+              print(selectedPageWidget.toString());
+              _refreshController.add(selectedPageWidget);
             },
           ),
           ListTile(
@@ -59,6 +79,8 @@ class _RootPageState extends State<RootPage> {
             leading: Icon(Icons.check),
             onTap: () {
               selectedPageWidget = PagesWidget.LICENSES;
+              print(selectedPageWidget.toString());
+              _refreshController.add(selectedPageWidget);
             },
           ),
           ListTile(
@@ -66,6 +88,8 @@ class _RootPageState extends State<RootPage> {
             leading: Icon(Icons.description),
             onTap: () {
               selectedPageWidget = PagesWidget.DESCRIPTION;
+              print(selectedPageWidget.toString());
+              _refreshController.add(selectedPageWidget);
             },
           ),
         ],
@@ -79,7 +103,13 @@ class _RootPageState extends State<RootPage> {
       body: FutureBuilder(
         future: _playAnimation(),
         builder: (BuildContext context, AsyncSnapshot snapshot) {
-          return getCustomPage();
+          return StreamBuilder(
+            stream: _refreshController.stream,
+            initialData: PagesWidget.TODOLIST,
+            builder: (BuildContext context, AsyncSnapshot snapshot) {
+              return getCustomPage();
+            },
+          );
         },
       ),
     );
@@ -91,6 +121,7 @@ class _RootPageState extends State<RootPage> {
   }
 
   Widget getCustomPage() {
+    print("called");
     switch (selectedPageWidget) {
       case PagesWidget.TODOLIST:
         return getTodoListPage();
@@ -99,6 +130,7 @@ class _RootPageState extends State<RootPage> {
       case PagesWidget.DESCRIPTION:
         return getDescriptionPage();
     }
+    return getTodoListPage();
   }
 
   Widget getTodoListPage() {
@@ -110,7 +142,7 @@ class _RootPageState extends State<RootPage> {
 
   Widget getLicensesPage() {
     return FadeTransition(
-      opacity: _animation, 
+      opacity: _animation,
       child: LicensePage(),
     );
   }
@@ -131,7 +163,8 @@ class TodoListPage extends StatefulWidget {
 class _TodoListPageState extends State<TodoListPage> {
   @override
   Widget build(BuildContext context) {
-    ValueListenableBuilder(
+    return Container(
+        child: ValueListenableBuilder(
       builder: (BuildContext context, int value, Widget child) {
         return Row(
           children: <Widget>[
@@ -155,7 +188,7 @@ class _TodoListPageState extends State<TodoListPage> {
         );
       },
       valueListenable: counter,
-    );
+    ));
   }
 }
 
@@ -351,9 +384,7 @@ class _DescriptionsState extends State<Descriptions> {
     return Container(
         color: Colors.black54,
         child: Column(
-          children: <Widget>[
-            Text("description")
-          ],
-        ));  
+          children: <Widget>[Text("description")],
+        ));
   }
 }
