@@ -1,12 +1,13 @@
 # flutter todo list for web
 
 ## OverView
-Flutterで作られたWebアプリです  
-モバイル非対応です
+Flutterで作られたWebアプリです。  
+
 
 ## Description
 FLutterをWebで動かしてみたいがために作られたToDoアプリです。    
-UIやロジックの勉強を含めてやっていたので、かなりコードが良くないです。そのうちリファクタリングをしようと思っていｍ(ry
+UIやロジックの勉強を含めてやっていたので、かなりコードが良くないです。  
+そのうちリファクタリングをしようと思っていｍ(ry
 
 ## Demo
 <img src="./clipboard.png" width="500.0">  
@@ -14,4 +15,5 @@ UIやロジックの勉強を含めてやっていたので、かなりコード
 
 
 ## Link
-[https://tabe0000.github.io/flutter_todo_list_for_web](https://tabe0000.github.io/flutter_todo_list_for_web)
+[https://tabe0000.github.io/flutter_todo_list_for_web](https://tabe0000.github.io/flutter_todo_list_for_web)  
+※モバイル非対応です。
