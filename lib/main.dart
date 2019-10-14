@@ -8,6 +8,10 @@ final ValueNotifier<int> counter = ValueNotifier<int>(0);
 
 enum PagesWidget { TODOLIST, LICENSES, DESCRIPTION }
 
+List<Map<String, dynamic>> tasks = [
+  {"task": "try making coffee", "value": false},
+];
+
 void main() => runApp(MyApp());
 
 class MyApp extends StatelessWidget {
@@ -37,6 +41,7 @@ class _RootPageState extends State<RootPage>
   AnimationController _controller;
   Animation _animation;
   StreamController<PagesWidget> _refreshController;
+
 
   @override
   void initState() {
@@ -198,9 +203,7 @@ class TaskListArea extends StatefulWidget {
 }
 
 class _TaskListAreaState extends State<TaskListArea> {
-  List<Map<String, dynamic>> tasks = [
-    {"task": "try making coffee", "value": false},
-  ];
+
 
   final _taskTextFieldController = TextEditingController();
   Map<String, dynamic> tempMap = {};
