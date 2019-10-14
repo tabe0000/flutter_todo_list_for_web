@@ -1,12 +1,12 @@
 import 'dart:ui';
-
 import 'package:flutter/material.dart';
 import 'dart:async';
-
 
 var controller = StreamController<String>();
 
 final ValueNotifier<int> counter = ValueNotifier<int>(0);
+
+enum PagesWidget { TODOLIST, LICENSES, DESCRIPTION }
 
 void main() => runApp(MyApp());
 
@@ -32,72 +32,130 @@ class RootPage extends StatefulWidget {
 }
 
 class _RootPageState extends State<RootPage> {
+  PagesWidget selectedPageWidget = PagesWidget.TODOLIST;
+  AnimationController _controller;
+  Animation _animation;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        drawer: Drawer(
-            child: ListView(
-          padding: EdgeInsets.zero,
-          children: <Widget>[
-            DrawerHeader(
-              child: Text('Flutter todo list app'),
-              decoration: BoxDecoration(color: Colors.black38),
-            ),
-            ListTile(
-              title: Text("Todo List"),
-              leading: Icon(Icons.list),
-              onTap: () {
+      drawer: Drawer(
+          child: ListView(
+        padding: EdgeInsets.zero,
+        children: <Widget>[
+          DrawerHeader(
+            child: Text('Flutter todo list app'),
+            decoration: BoxDecoration(color: Colors.black38),
+          ),
+          ListTile(
+            title: Text("Todo List"),
+            leading: Icon(Icons.list),
+            onTap: () {
+              selectedPageWidget = PagesWidget.TODOLIST;
+            },
+          ),
+          ListTile(
+            title: Text("Licenses"),
+            leading: Icon(Icons.check),
+            onTap: () {
+              selectedPageWidget = PagesWidget.LICENSES;
+            },
+          ),
+          ListTile(
+            title: Text("Description"),
+            leading: Icon(Icons.description),
+            onTap: () {
+              selectedPageWidget = PagesWidget.DESCRIPTION;
+            },
+          ),
+        ],
+      )),
+      appBar: AppBar(
+        title: Text("Flutter Todo list",
+            style: TextStyle(color: Color(0xfffafafa), fontFamily: "Roboto")),
+        backgroundColor: Colors.black87,
+        iconTheme: IconThemeData(color: Colors.white),
+      ),
+      body: FutureBuilder(
+        future: _playAnimation(),
+        builder: (BuildContext context, AsyncSnapshot snapshot) {
+          return getCustomPage();
+        },
+      ),
+    );
+  }
 
-              },
+  _playAnimation() {
+    _controller.reset();
+    _controller.forward();
+  }
+
+  Widget getCustomPage() {
+    switch (selectedPageWidget) {
+      case PagesWidget.TODOLIST:
+        return getTodoListPage();
+      case PagesWidget.LICENSES:
+        return getLicensesPage();
+      case PagesWidget.DESCRIPTION:
+        return getDescriptionPage();
+    }
+  }
+
+  Widget getTodoListPage() {
+    return FadeTransition(
+      opacity: _animation,
+      child: TodoListPage(),
+    );
+  }
+
+  Widget getLicensesPage() {
+    return FadeTransition(
+      opacity: _animation, 
+      child: LicensePage(),
+    );
+  }
+
+  Widget getDescriptionPage() {
+    return FadeTransition(
+      opacity: _animation,
+      child: Descriptions(),
+    );
+  }
+}
+
+class TodoListPage extends StatefulWidget {
+  @override
+  _TodoListPageState createState() => _TodoListPageState();
+}
+
+class _TodoListPageState extends State<TodoListPage> {
+  @override
+  Widget build(BuildContext context) {
+    ValueListenableBuilder(
+      builder: (BuildContext context, int value, Widget child) {
+        return Row(
+          children: <Widget>[
+            Expanded(
+              flex: 5,
+              child: Container(
+                height: double.infinity,
+                width: double.infinity,
+                color: Colors.white,
+                child: TaskListArea(),
+              ),
             ),
-            ListTile(
-              title: Text("Licenses"),
-              leading: Icon(Icons.check),
-              onTap: () {
-                Navigator.of(context).push(
-                      MaterialPageRoute(builder: (context) {
-                  return Licenses();
-                }));
-              },
-            ),
-            ListTile(
-              title: Text("Description"),
-              leading: Icon(Icons.description),
-              onTap: () {},
-            ),
+            Expanded(
+              flex: 3,
+              child: Container(
+                color: Color(0xfffafafa),
+                child: InfoWindows(),
+              ),
+            )
           ],
-        )),
-        appBar: AppBar(
-          title: Text("Flutter Todo list",
-              style: TextStyle(color: Color(0xfffafafa), fontFamily: "Roboto")),
-          backgroundColor: Colors.black87,
-          iconTheme: IconThemeData(color: Colors.white),
-        ),
-        body: ValueListenableBuilder(
-          builder: (BuildContext context, int value, Widget child) {
-            return Row(
-              children: <Widget>[
-                Expanded(
-                  flex: 5,
-                  child: Container(
-                    height: double.infinity,
-                    width: double.infinity,
-                    color: Colors.white,
-                    child: TaskListArea(),
-                  ),
-                ),
-                Expanded(
-                  flex: 3,
-                  child: Container(
-                    color: Color(0xfffafafa),
-                    child: InfoWindows(),
-                  ),
-                )
-              ],
-            );
-          },
-          valueListenable: counter,
-        ));
+        );
+      },
+      valueListenable: counter,
+    );
   }
 }
 
@@ -275,12 +333,27 @@ class _LicensesState extends State<Licenses> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: Colors.black54,
-      child: Column(
-        children: <Widget>[
-          Text("hogehoge")
-        ],
-      )
-    );
+        color: Colors.black54,
+        child: Column(
+          children: <Widget>[Text("hogehoge")],
+        ));
+  }
+}
+
+class Descriptions extends StatefulWidget {
+  @override
+  _DescriptionsState createState() => _DescriptionsState();
+}
+
+class _DescriptionsState extends State<Descriptions> {
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+        color: Colors.black54,
+        child: Column(
+          children: <Widget>[
+            Text("description")
+          ],
+        ));  
   }
 }
