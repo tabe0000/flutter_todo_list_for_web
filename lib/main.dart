@@ -263,7 +263,7 @@ class _TaskListAreaState extends State<TaskListArea> {
             flex: 15,
             child: ListView.separated(
                 separatorBuilder: (context, index) =>
-                    Divider(color: Colors.black12),
+                    Divider(color: Colors.white70),
                 padding: EdgeInsets.symmetric(horizontal: 50.0, vertical: 5.0),
                 itemCount: tasks.length,
                 itemBuilder: (BuildContext context, int index) {
@@ -382,9 +382,47 @@ class _DescriptionsState extends State<Descriptions> {
   @override
   Widget build(BuildContext context) {
     return Container(
-        color: Colors.black54,
+        color: Colors.white70,
+        width: double.infinity,
+        height: double.infinity,
         child: Column(
-          children: <Widget>[Text("description")],
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: <Widget>[
+            SizedBox(
+              height: 60.0,
+            ),
+            Text(
+              "Description",
+              style: TextStyle(
+                fontSize: 30.0,
+                fontFamily: "Roboto",
+              ),
+            ),
+            SizedBox(
+              height: 100.0,
+            ),
+            SizedBox(
+              width: 300.0,
+              child: ListTile(
+                title: Text("tabe"),
+                subtitle: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: <Widget>[
+                    Text("Twitter: @tabe_unity"),
+                    Text("PortfolioSite: tabedev.work"),
+                  ],
+                )
+              ),
+            ),
+            SizedBox(
+              height: 100.0,
+            ),
+            Text(
+              "このWebアプリはFlutterで作られています。練習で作ってみました。ぜひご活用ください。"
+            )
+
+          
+          ],
         ));
   }
 }
